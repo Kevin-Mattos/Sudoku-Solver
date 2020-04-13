@@ -22,6 +22,12 @@ class Button(pygame.sprite.Sprite):
             screen.blit(self.image, self.pos)
             print("setting {} at {}".format(num, self.vetpos))
             return True
+        else:
+            self.num = num
+            self.image =  pygame.image.load('Images/{}Fixed.png'.format(num)).convert()
+            screen.blit(self.image, self.pos)
+            print("setting {} at {}".format(num, self.vetpos))
+
         return False
         
     def removeNum(self, screen):

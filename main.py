@@ -19,7 +19,7 @@ def imp(grid):
 
 def fillBoard():
     marginY = 0
-    marginX = 0
+    margemX = 0
     a = []
     margemX = math.ceil(fullSize/2)
     for x in range(math.floor(width/(fullSize))): 
@@ -51,77 +51,20 @@ def getBoard(grid):
     for linha in range(math.floor(width/(fullSize))): 
         for coluna in range(math.floor(height/(fullSize))): 
             if(content[i] == "\n"):
-                i += 1
-            grid[linha][coluna].displayNum(int(content[i]), screen)
+                i += 1            
             if(int(content[i]) != 0):
                 grid[linha][coluna].fixed = True
+            grid[linha][coluna].displayNum(int(content[i]), screen)
             i += 1
             
     f.close()
-
-def sudokuSolver(grid):
-    num = [1,2,3,4,5,6,7,8,9,10]
-   #y= linha
-   #x = coluna
-    linha = 0
-    coluna = 0
-    verificador = 0
-
-    while( linha < math.floor(width/(fullSize))):         
-        while(coluna < (math.floor(height/(fullSize)))): 
-            if(not (grid[linha][coluna].fixed)):
-                while(verificador != 10 and not grid[linha][coluna].fixed):                    
-                
-                    if(grid[linha][coluna].num == 0 and canItBeThere(grid, (linha, coluna), verificador)):
-                    
-                        if(grid[linha][coluna].displayNum(verificador, screen)):
-                            pygame.display.flip()                        
-                            time.sleep(.5)
-                            break
-                    else:
-                        verificador += 1
-
-                if(verificador == 10):                    
-                    while(not grid[linha][coluna].removeNum(screen)):
-                        linha, coluna = backtrack((linha,coluna))
-                        verificador = grid[linha][coluna].num
-                   
-                    pygame.display.flip() 
-
-            
-        
-                    
-                
-            print("aumentando coluna", coluna +1)
-            coluna += 1  
-        print("aumentando linha", linha +1)
-        linha += 1
-        coluna = 0  
-            
-    """
-            if(verificador == 10):
-                x, y = backtrack((x,y))
-                print("retorne: ",x,y)
-                verificador = 0
-                grid[x][y].removeNum(screen)
-            for num in nums:
-                if(num == 10):
-                    verificador = 10                    
-                elif(grid[x][y].num == 0 and canItBeThere(grid,(x, y), num)):
-                    grid[x][y].displayNum(num, screen)
-                    pygame.display.flip()
-                    time.sleep(2)
-                    break
-                
-                    
-            """
 
 def recursive(grid):  
     pos = [0,0]
     
     pygame.display.flip() 
 
-    time.sleep(.08)
+    #time.sleep(.08)
     
     if(not emptyLocations(grid, pos)):
         return True
@@ -129,10 +72,7 @@ def recursive(grid):
     linha = pos[0]
     coluna = pos[1]
     print("posicao:", (linha, coluna))
-    for i in range(1,10):
-        #if(button.fixed):            
-        #    recursive(grid, grid[pos[0]][pos[1]])
-        #    return True
+    for i in range(1,10):       
         
         if(canItBeThere(grid,(linha, coluna), i)):   
            
@@ -145,7 +85,6 @@ def recursive(grid):
     return False
 
 def emptyLocations(grid, l):
-
     for i in range(9):        
         for j in range(9):
             if(grid[i][j].num == 0):
@@ -154,16 +93,6 @@ def emptyLocations(grid, l):
                 return True
     return False
                  
-
-def backtrack(pos):
-    
-    i = pos[0]
-    j = pos[1]
-    print("backtrack", i, j)
-    if(j <= 0):
-        return i - 1, 8
-    else:
-        return i, j - 1
             
 def canItBeThere(grid, pos, num):
     
