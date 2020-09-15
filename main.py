@@ -11,6 +11,25 @@ width, height = 9*(fullSize), 9 * (fullSize)
 compensation = 6
 size = width + blockSize + compensation, height + blockSize + compensation
 
+def checkIfClosed():
+    ev = pygame.event.get()
+    
+    for event in ev: 
+
+        #print(event) 
+        if(event.type == pygame.QUIT):
+            print('(x) clicked, closing window')
+            closeWindow()
+
+        if (event.type == pygame.KEYDOWN):
+            if (event.key == pygame.K_q):
+                print("(q) pressed, closing window")
+                closeWindow()
+                
+def closeWindow():
+    pygame.display.quit()
+    pygame.quit()
+    sys.exit()
 def imp(grid):
     for i in range(9):
         for j in range(9):
@@ -63,7 +82,7 @@ def recursive(grid):
     pos = [0,0]
     
     pygame.display.flip() 
-
+    checkIfClosed()
     #time.sleep(.08)
     
     if(not emptyLocations(grid, pos)):
@@ -148,14 +167,4 @@ print("acabou")
 while(1):           
     # proceed events
     pygame.display.flip()
-    ev = pygame.event.get()
-    
-    for event in ev: 
-
-        #print(event)       
-        if (event.type == pygame.KEYDOWN):
-            if (event.key == pygame.K_LEFT):
-                print("arrow pressed, exiting game")
-                pygame.display.quit()
-                pygame.quit()
-                sys.exit()
+    checkIfClosed()

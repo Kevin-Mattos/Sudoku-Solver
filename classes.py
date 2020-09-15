@@ -16,19 +16,20 @@ class Button(pygame.sprite.Sprite):
         self.image = pygame.image.load('Images/0.png').convert()
 
     def displayNum(self, num, screen):
-        if(not self.fixed):
-            self.num = num
-            self.image =  pygame.image.load('Images/{}.png'.format(num)).convert()
-            screen.blit(self.image, self.pos)
-            print("setting {} at {}".format(num, self.vetpos))
-            return True
-        else:
-            self.num = num
-            self.image =  pygame.image.load('Images/{}Fixed.png'.format(num)).convert()
-            screen.blit(self.image, self.pos)
-            print("setting {} at {}".format(num, self.vetpos))
 
-        return False
+        self.num = num
+        if(not self.fixed):
+            self.image =  pygame.image.load('Images/{}.png'.format(self.num)).convert()
+        else:
+            self.image =  pygame.image.load('Images/{}Fixed.png'.format(self.num)).convert()
+
+        self.setNumber(screen)
+        print("setting {} at {}".format(num, self.vetpos))
+        return not self.fixed
+
+    def setNumber(self, screen):        
+        screen.blit(self.image, self.pos)
+        print("setting {} at {}".format(self.num, self.vetpos))
         
     def removeNum(self, screen):
         if(not self.fixed):
